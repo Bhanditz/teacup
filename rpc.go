@@ -5,10 +5,10 @@ import "encoding/json"
 type RpcMessage struct {
 	JSONRPC string           `json:"jsonrpc"`
 	ID      int64            `json:"id"`
-	Method  string           `json:"method"`
-	Params  *json.RawMessage `json:"params"`
-	Result  *json.RawMessage `json:"result"`
-	Error   *RpcError        `json:"error"`
+	Method  string           `json:"method,omitempty"`
+	Params  *json.RawMessage `json:"params,omitempty"`
+	Result  *json.RawMessage `json:"result,omitempty"`
+	Error   *RpcError        `json:"error,omitempty"`
 }
 
 type RpcError struct {
