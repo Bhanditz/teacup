@@ -3,8 +3,10 @@ package main
 import (
 	"fmt"
 	"log"
+	"math/rand"
 	"net"
 	"os"
+	"time"
 
 	kingpin "gopkg.in/alecthomas/kingpin.v2"
 )
@@ -16,6 +18,8 @@ var (
 )
 
 func main() {
+	rand.Seed(time.Now().UnixNano())
+
 	_, err := app.Parse(os.Args[1:])
 	if err != nil {
 		ctx, _ := app.ParseContext(os.Args[1:])
@@ -30,6 +34,9 @@ func main() {
 }
 
 func start() {
+	log.SetOutput(os.Stdout)
+	log.SetFlags(log.Ltime | log.Lmicroseconds | log.LUTC)
+
 	address := fmt.Sprintf("localhost:%d", defaultPort)
 	listener, err := net.Listen("tcp", address)
 	must(err)
